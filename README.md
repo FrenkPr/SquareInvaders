@@ -1,7 +1,7 @@
 # SquareInvaders
- Space Invaders game created during AIV 1st year.
- All rights reserved to AIV company.
+Space Invaders game created during AIV 1st year.<br/>
+All rights reserved to AIV company.
 
 # Controls
- Left/Right Arrows   Move player to left/right
- Up Arrow            Shoot
+Left/Right Arrows   Move player to left/right<br/>
+Up Arrow            Shoot
