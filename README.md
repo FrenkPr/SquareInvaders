@@ -4,4 +4,4 @@ All rights reserved to AIV company.
 
 # Controls
 Left/Right Arrows   Move player to left/right
-Up Arrow            Shoot
+\nUp Arrow            Shoot
