@@ -6,8 +6,10 @@ namespace SquareInvaders
     {
         private static Alien[,] aliens;
         private static Vector2[,] recentPositions;
+        private static int numAliensOnStart;
+        private static int aliensKilled;
 
-        public static void InitAliens(int aliensPerRow, int aliensPerCol, int width, int height)
+        public static void InitAliens(int aliensPerRow, int aliensPerCol, int alienWidth, int alienHeight)
         {
             float x = 30;
             float y = 10;
@@ -17,20 +19,23 @@ namespace SquareInvaders
             aliens = new Alien[aliensPerRow, aliensPerCol];
             recentPositions = new Vector2[aliensPerRow, aliensPerCol];
 
+            numAliensOnStart = aliens.Length;
+            aliensKilled = 0;
+
             for (int i = 0; i < aliensPerRow; i++)
             {
                 for (int j = 0; j < aliensPerCol; j++)
                 {
-                    aliens[i, j] = new Alien(new Vector2(x, y), width, height);
-                    x += width + distX;
+                    aliens[i, j] = new Alien(new Vector2(x, y), alienWidth, alienHeight);
+                    x += alienWidth + distX;
                 }
 
-                y += height + distY;
+                y += alienHeight + distY;
                 x = 30;
             }
         }
 
-        public static void CheckBoundsCollision()
+        public static void CheckBoundCollisions()
         {
             string indexesAllToLeft = GetAlienIndexesAllToLeft();
             string indexesAllToRight = GetAlienIndexesAllToRight();
@@ -173,6 +178,17 @@ namespace SquareInvaders
             return aliensAtBottom;
         }
 
+        private static void UpdateAliensSpeed()
+        {
+            for (int i = 0; i < aliens.GetLength(0); i++)
+            {
+                for (int j = 0; j < aliens.GetLength(1); j++)
+                {
+                    aliens[i, j].UpdateSpeed();
+                }
+            }
+        }
+
         public static void Shoot()
         {
             int freeBulletIndex = BulletMngr.GetFreeAlienBulletIndex();
@@ -239,6 +255,17 @@ namespace SquareInvaders
                     if (aliens[i, j].Collided(b.pos) && aliens[i, j].IsAlive() && b.isShot)
                     {
                         aliens[i, j].OnHit();
+                        aliensKilled++;
+
+                        //updates aliens speed every time the player killed
+                        //1/4, 2/4 or 3/4 of the total enemies
+                        if (aliensKilled == (int)(numAliensOnStart * 0.25f) ||
+                            aliensKilled == (int)(numAliensOnStart * 0.5f) ||
+                            aliensKilled == (int)(numAliensOnStart * 0.75f))
+                        {
+                            UpdateAliensSpeed();
+                        }
+
                         return true;
                     }
                 }

@@ -1,4 +1,4 @@
-﻿
+﻿using System;
 
 namespace SquareInvaders
 {
@@ -67,6 +67,14 @@ namespace SquareInvaders
         public static void ChangeXDir()
         {
             speedX *= -1;
+        }
+
+        public void UpdateSpeed()
+        {
+            if (isAlive)
+            {
+                speedX += 8 * Math.Sign(speedX);
+            }
         }
 
         public void MoveX()
@@ -173,7 +181,9 @@ namespace SquareInvaders
         public bool Collided(Vector2 bulletPos)
         {
             Vector2 dist = bulletPos;
-            dist.Sub(new Vector2(pos.X, pos.Y + height));  //subtraction between bullet and alien pos
+            float xOffset = 15;
+
+            dist.Sub(new Vector2(pos.X + xOffset, pos.Y + height));  //subtraction between bullet and alien pos
 
             return dist.GetVectorLength() <= height;
         }

@@ -8,6 +8,8 @@ namespace SquareInvaders
         private Vector2 moveSpeed;
         Sprite player;
         private int numLives;
+        private bool isPauseMenuInputPressed;
+        public bool IsPauseMenuActive { get; private set; }
 
         public Player()
         {
@@ -15,6 +17,36 @@ namespace SquareInvaders
             pos = new Vector2(Gfx.Window.Width * 0.5f - player.Width * 0.5f, 500);
             moveSpeed = new Vector2(500, 0);
             numLives = 3;
+
+            IsPauseMenuActive = false;
+            Gfx.Window.SetMouseVisible(false);
+        }
+
+        public void TogglePauseMenu()
+        {
+            if (Gfx.Window.GetKey(KeyCode.Q))
+            {
+                if (!isPauseMenuInputPressed)
+                {
+                    IsPauseMenuActive = !IsPauseMenuActive;
+                    Gfx.Window.SetMouseVisible(IsPauseMenuActive);
+
+                    isPauseMenuInputPressed = true;
+                } 
+            }
+
+            else
+            {
+                isPauseMenuInputPressed = false;
+            }
+        }
+
+        public void QuitGame()
+        {
+            if (Gfx.Window.GetKey(KeyCode.Esc))
+            {
+                Gfx.Window.Close();
+            }
         }
 
         public void Move()
@@ -71,7 +103,7 @@ namespace SquareInvaders
             }
         }
 
-        public void CheckBoundsCollision()
+        public void CheckBoundCollisions()
         {
             //horizontal collisions
             if (pos.X < 30)

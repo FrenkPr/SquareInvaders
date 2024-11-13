@@ -9,6 +9,7 @@ namespace SquareInvaders
         public static void InitWindow(string title, int width = 800, int height = 600)
         {
             Window = new Window(width, height, title, PixelFormat.RGB);
+            Window.SetIcon("Assets/SquareInvadersIcon.ico");
         }
 
         public static void DrawFilledRect(int x, int y, int width, int height, Color c)

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Aiv.Draw;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +11,7 @@ namespace SquareInvaders
     {
         private static Player player;
         public static float Gravity { get; private set; }
-        private static int endCount;
+        private static float endCount;
 
         public static void Init()
         {
@@ -24,12 +25,27 @@ namespace SquareInvaders
 
         public static void Run()
         {
-            while (Gfx.Window.IsOpened && player.GetNumLives() > 0 && endCount <= 500)
+            while (Gfx.Window.IsOpened && player.GetNumLives() > 0 && endCount <= 3)
             {
                 Gfx.ClearScreen();
 
+                if (player.IsPauseMenuActive)
+                {
+                    player.TogglePauseMenu();
+                    player.QuitGame();
+
+                    player.Draw();
+                    AlienManager.DrawAliens();
+                    BulletMngr.DrawShotBullets();
+
+                    Gfx.Window.Blit();
+                    continue;
+                }
+
+                player.TogglePauseMenu();
+                player.QuitGame();
                 player.Move();
-                player.CheckBoundsCollision();
+                player.CheckBoundCollisions();
 
                 player.Draw();
 
@@ -39,7 +55,7 @@ namespace SquareInvaders
                 {
                     AlienManager.MoveAliensX();
 
-                    AlienManager.CheckBoundsCollision();
+                    AlienManager.CheckBoundCollisions();
 
                     BulletMngr.EnemyCollidedWithBullet();
 
@@ -48,7 +64,7 @@ namespace SquareInvaders
 
                 else
                 {
-                    endCount++;
+                    endCount += Gfx.Window.DeltaTime;
                 }
 
                 AlienManager.UpdateAliensExplosion();
