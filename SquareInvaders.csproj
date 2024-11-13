@@ -52,21 +52,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Alien.cs" />
-    <Compile Include="AlienBullet.cs" />
-    <Compile Include="Animation.cs" />
-    <Compile Include="Bullet.cs" />
-    <Compile Include="AlienManager.cs" />
-    <Compile Include="BulletMngr.cs" />
-    <Compile Include="Color.cs" />
+    <Compile Include="Actors\Alien.cs" />
+    <Compile Include="Actors\Player.cs" />
+    <Compile Include="Bullets\AlienBullet.cs" />
+    <Compile Include="Bullets\Bullet.cs" />
+    <Compile Include="Components\Animation.cs" />
     <Compile Include="Game.cs" />
-    <Compile Include="Gfx.cs" />
-    <Compile Include="Pixel.cs" />
-    <Compile Include="Player.cs" />
+    <Compile Include="Graphics\Gfx.cs" />
+    <Compile Include="Graphics\Pixel.cs" />
+    <Compile Include="Managers\AlienManager.cs" />
+    <Compile Include="Managers\BulletMngr.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RandomGenerator.cs" />
-    <Compile Include="Vector2.cs" />
+    <Compile Include="Utilities\Color.cs" />
+    <Compile Include="Utilities\RandomGenerator.cs" />
+    <Compile Include="Utilities\Vector2.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -101,5 +101,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
